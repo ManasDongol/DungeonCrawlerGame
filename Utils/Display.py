@@ -1,29 +1,33 @@
 import tkinter as tk
 
-# Grid size
-ROWS = 12
-COLS = 12
-CELL_SIZE = 40
+class display:
+    ROWS = -1
+    COLS = -1
+    CELL_SIZE = -1
+    def __init__(self,ROWS,COLS,CELL_SIZE):
+        self.ROWS = ROWS
+        self.COLS = COLS
+        self.CELL_SIZE = CELL_SIZE
 
-# Create main window
-root = tk.Tk()
-root.title("Dungeon Crawler Grid")
+    def createworld(self):
+        root = tk.Tk()
+        root.title("Dungeon Crawler Grid")
+        # Create Canvas
+        canvas = tk.Canvas(root, width=self.COLS * self.CELL_SIZE, height=self.ROWS * self.CELL_SIZE, bg="black")
+        canvas.pack()
+        player = canvas.create_rectangle(
+            0, 0, self.CELL_SIZE, self.CELL_SIZE, fill="blue"
+        )
 
-# Create Canvas
-canvas = tk.Canvas(root, width=COLS*CELL_SIZE, height=ROWS*CELL_SIZE, bg="black")
-canvas.pack()
-player = canvas.create_rectangle(
-    0, 0, CELL_SIZE, CELL_SIZE, fill="blue"
-)
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                x1 = col * self.CELL_SIZE
+                y1 = row * self.CELL_SIZE
+                x2 = x1 + self.CELL_SIZE
+                y2 = y1 + self.CELL_SIZE
+                canvas.create_rectangle(x1, y1, x2, y2, outline="gray")
+        root.mainloop()
 
 
-# Draw the grid
-for row in range(ROWS):
-    for col in range(COLS):
-        x1 = col * CELL_SIZE
-        y1 = row * CELL_SIZE
-        x2 = x1 + CELL_SIZE
-        y2 = y1 + CELL_SIZE
-        canvas.create_rectangle(x1, y1, x2, y2, outline="gray")
 
-root.mainloop()
+
